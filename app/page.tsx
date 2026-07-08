@@ -23,6 +23,8 @@ type BoardAction =
     };
 
 const AUTO_RETURN_DELAY = 5000;
+const GITHUB_REPOSITORY_URL =
+  "https://github.com/Gap-Nattakorn/nattakorn-7-solutions-frontend-assignment";
 const TABS: { label: string; value: ActiveTab }[] = [
   {
     label: "Auto Delete Todo List",
@@ -202,7 +204,17 @@ export default function Home() {
             Frontend Assignment
           </h1>
 
-          <Tabs activeTab={activeTab} onChange={changeTab} tabs={TABS} />
+          <div className="flex flex-col gap-2 sm:items-end">
+            <a
+              className="inline-flex h-10 items-center justify-center rounded-md border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-900/20"
+              href={GITHUB_REPOSITORY_URL}
+              rel="noreferrer"
+              target="_blank"
+            >
+              GitHub Repository
+            </a>
+            <Tabs activeTab={activeTab} onChange={changeTab} tabs={TABS} />
+          </div>
         </header>
 
         {activeTab === "todo" ? (

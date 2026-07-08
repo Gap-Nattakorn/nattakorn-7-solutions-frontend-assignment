@@ -74,9 +74,14 @@ export function DepartmentReport({
                 <h2 className="text-lg font-semibold text-slate-950">
                   {department}
                 </h2>
-                <span className="rounded-full bg-slate-900 px-2.5 py-1 text-xs font-semibold text-white">
-                  {summary.ageRange}
-                </span>
+                <div className="shrink-0 rounded-md border border-slate-200 bg-white px-3 py-2 text-right">
+                  <div className="text-[0.65rem] font-semibold uppercase text-slate-500">
+                    Age range
+                  </div>
+                  <div className="mt-0.5 text-sm font-semibold leading-none text-slate-950">
+                    {summary.ageRange}
+                  </div>
+                </div>
               </div>
 
               <div className="mt-4 grid grid-cols-2 gap-2">

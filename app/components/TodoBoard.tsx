@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 import Image from "next/image";
 
 import { ColumnHeader } from "./ColumnHeader";
@@ -6,6 +6,7 @@ import { ColumnHeader } from "./ColumnHeader";
 import type { BoardState, ItemType, TodoItem } from "../types";
 
 const ITEM_TYPES: ItemType[] = ["Fruit", "Vegetable"];
+const AUTO_RETURN_SECONDS = 5;
 const FULL_WIDTH_STYLE = { width: "100%" };
 
 const typeStyles: Record<
@@ -119,6 +120,17 @@ const ActiveButton = memo(function ActiveButton({
   item: TodoItem;
   onReturn: (item: TodoItem) => void;
 }) {
+  const [remainingSeconds, setRemainingSeconds] =
+    useState(AUTO_RETURN_SECONDS);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRemainingSeconds((current) => Math.max(current - 1, 0));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <button
       className={`relative h-14 w-full overflow-hidden rounded-md border px-4 text-left text-sm font-semibold shadow-sm transition focus:outline-none focus:ring-2 focus:ring-slate-900/20 ${typeStyles[item.type].activeButton}`}
@@ -130,7 +142,9 @@ const ActiveButton = memo(function ActiveButton({
           <TypeIcon type={item.type} />
           <span className="truncate">{item.name}</span>
         </span>
-        <span className="text-xs font-medium text-slate-500">5s</span>
+        <span className="text-xs font-medium text-slate-500">
+          {remainingSeconds}s
+        </span>
       </span>
       <span
         aria-hidden="true"
